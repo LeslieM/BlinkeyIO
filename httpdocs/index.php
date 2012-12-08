@@ -2,9 +2,8 @@
 	
 	require_once 'Controller.php';
 
-	$instructions = new Instructions();
-	
-	$instructions->addInstruction()
+	$controller = new Controller();
+	$controller->callAction();
 	
 	/*
 	
