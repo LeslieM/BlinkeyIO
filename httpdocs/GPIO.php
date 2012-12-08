@@ -1,8 +1,22 @@
 <?php 
 	class GPIO {
 
+		const DIRECTION_IN  = 'in';
+		const DIRECTION_OUT = 'out';
+		
+		const REVISION_1 = 'R1';
+		const REVISION_2 = 'R2';
+		
 		// Using BCM pin numbers.
-		private $pins = ['0', '1', '4', '7', '8', '9', '10', '11', '14', '15', '17', '18', '21', '22', '23', '24', '25'];
+		private $pins;
+		private $pinsR1 = array('0', '1', '4', '7', '8', '9', '10', '11', '14', '15', '17', '18', '21', '22', '23', '24', '25');
+		//                       |    |                                                            || 
+		private $pinsR2 = array('2', '3', '4', '7', '8', '9', '10', '11', '14', '15', '17', '18', '27', '22', '23', '24', '25');
+		
+		public function __construct($revision = null) {
+			if(isset($this->{'pins'.$revision}))
+				$this->pins = $this->{'pins'.$revision};
+		}
 
 		// exported pins for when we unexport all
 		private $exportedPins = array();
@@ -27,17 +41,15 @@
 				// Add to exported pins array
 				$exportedPins[] = $pinNo;
 			} else {
-				echo 'Error! Not a valid pin!';
+				throw new Exception('Error! Not a valid pin!');
 			}
 		}
 
 		public function input($pinNo) {
 			if($this->isExported($pinNo)) {
-				if($this->currentDirection($pinNo) != "out") {
+				//if($this->currentDirection($pinNo) != "out") {
 					return file_get_contents('/sys/class/gpio/gpio'.$pinNo.'/value');
-				} else {
-					echo 'Error! Wrong Direction for this pin!';
-				}
+				//}
 			}
 		}
 
