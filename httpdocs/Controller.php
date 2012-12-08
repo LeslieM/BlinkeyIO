@@ -21,16 +21,18 @@
 		 * Calls the requested action
 		 * @param string $action
 		 */
-		public function callAction($action = null) {
+		public function callAction($action = null, $parameters = null) {
 			
 			if(!method_exists($this, $action.'Action'))
 				$action = 'index';
 			
-			$this->{$action.'Action'}();
+			$this->{$action.'Action'}($parameters);
 			
 			require_once self::$template;
 			
 		}
+		
+		
 		
 		//
 		// Actions
@@ -38,13 +40,17 @@
 		
 		protected function indexAction() {
 			
-			echo 'index';
+			
 			
 		}
 		
-		protected function addAction() {
+		/**
+		 * @deprecated
+		 * @param unknown_type $instruction
+		 */
+		protected function addAction($instruction) {
 			
-			echo 'add';
+			
 			
 		}
 		
