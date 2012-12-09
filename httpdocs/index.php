@@ -1,7 +1,15 @@
 <?php
-	
+	echo 'hi';
 	require_once 'Controller.php';
-
+	require_once 'GPIO.php';
+	
+	$gpio = new GPIO();
+	$gpio->unexportAll();
+	
+	$gpio->setup(27, 'out');
+	$gpio->output(27, 1);
+	
+	/*
 	$controller = new Controller();
 	$controller->callAction();
 	

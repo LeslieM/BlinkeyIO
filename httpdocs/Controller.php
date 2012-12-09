@@ -1,20 +1,24 @@
 <?php
 
 	require_once 'Tools.php';
-	require_once 'Session.php';
+	require_once 'Processor.php';
 
 	class Controller  {
 		
 		protected $request;
 		protected $requestedPath;
-		protected $instructions;
+		/**
+		 * The processor object
+		 * @var Processor
+		 */
+		protected $processor;
 		
 		protected static $template = '../templates/index.php';
 		
 		public function __construct() {
 			$this->request = Tools::arrayToObject($_REQUEST);
 			$this->requestedPath = explode('/', $_SERVER['REQUEST_URI']);
-			$this->session = Session::getSession();
+			$this->processor = Processor::getSession();
 		}
 		
 		/**
@@ -29,6 +33,7 @@
 			$this->{$action.'Action'}($parameters);
 			
 			require_once self::$template;
+			exit;
 			
 		}
 		
@@ -41,6 +46,30 @@
 		protected function indexAction() {
 			
 			
+			
+		}
+		
+		protected function executeAction() {
+			
+			if(!isset($this->request->instructions))
+				$this->callAction('index'); // Script terminates
+			
+			// Set up the instructions
+			$instructions = (array)$this->request->instructions;
+			foreach($instructions as $instruction)
+				$this->processor->addInstruction($instruction);
+			
+			$this->processor->stepThroughInstructionsWithGpioOutput();
+			
+		}
+		
+		/**
+		 * Resets the processor
+		 */
+		protected function resetAction() {
+			
+			$this->processor->cleanSession();
+			$this->processor = Processor::getSession();
 			
 		}
 		

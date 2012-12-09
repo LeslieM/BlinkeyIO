@@ -96,5 +96,12 @@
 		public function isValidPin($pinNo) {
 			return in_array($pinNo, $this->pins);
 		}
+		
+		public function unexportAll() {
+			foreach($pins as $pin) {
+				if($this->isExported($pin))
+					$this->unexport($pin);
+			}
+		}
 	}
 ?>

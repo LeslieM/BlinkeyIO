@@ -33,6 +33,7 @@
 				$this->instruction = $instruction;
 				return true;
 			}
+			return false;
 		}
 		
 		/**
