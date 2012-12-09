@@ -40,26 +40,53 @@
 	</div>
 	<div class="row-fluid well">
 		<div class="span4 well" style="background:white;">
-		<h5>Drag the blocks to the queve:</h5>
+		<h5>Bitwise operators you can use:</h5>
 		
-		<div class="ui-widget-content">
-			<img src="/static/images/and.jpg"/>
+		<div>
+			<table class="table table-bordered">
+			<tr>
+				<td><img src="/static/images/and.jpg"/></td>
+				<td><p>If both previous LEDs are set to True, then returns True otherwise False.</p></td>
+			</tr>
+			<tr>
+				<td><img src="/static/images/or.jpg"/></td>
+				<td><p>If one of the two previous LEDs are set to True, then returns True otherwise False.</p></td>
+			</tr>
+			<tr>
+				<td><img src="/static/images/or.jpg"/></td>
+				<td><p>If both previous LEDs are set to True, then returns True otherwise False.</p></td>
+			</tr>
+			</table>
 		</div>
 
 		</div>
 		<div class="span6 row well" style="background:white;height:400px;">
-		    <div class="btn-group">
+
+			<table class="table table-bordered">
+			<tr>
+				<td><img src="/static/images/unknown.jpg"/></td>
+				<td><img src="/static/images/unknown.jpg"/></td>
+				<td><img src="/static/images/unknown.jpg"/></td>
+				<td><img src="/static/images/unknown.jpg"/></td>
+				<td><img src="/static/images/unknown.jpg"/></td>
+				<td><img src="/static/images/unknown.jpg"/></td>
+			</tr>
+			<tr>
+			<td>
+		    	<div class="btn-group">
 			    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				Select <br/>operator<br/>
 				<span class="caret"></span>
 			    </a>
-		    <ul class="dropdown-menu">
-	            <li><img src="/static/images/and.jpg"/></li>
-		    <li><img src="/static/images/or.jpg"/></li>
-  		    <li><img src="/static/images/xor.jpg"/></li>
-		    </ul>
-		    </div>
-
+			    <ul class="dropdown-menu">
+		            <li><img src="/static/images/and.jpg"/></li>
+			    <li><img src="/static/images/or.jpg"/></li>
+	  		    <li><img src="/static/images/xor.jpg"/></li>
+			    </ul>
+                        </div>
+			</td>
+			</tr>
+			</table>
 		</div>
 	</div>
 </div>
