@@ -70,10 +70,11 @@
 			$instructions = (array)$this->request->instructions;
 			foreach($instructions as $instruction)
 				$this->processor->addInstruction($instruction);
-			
+			var_dump($this->processor->getInstructions());
 			$this->processor->stepThroughInstructionsWithGpioOutput();
 			
-			//var_dump($this->processor->hasWon());
+			echo $this->processor->hasWon();
+			exit;
 			
 		}
 		
@@ -84,16 +85,6 @@
 			
 			$this->processor->cleanSession();
 			$this->processor = Processor::getSession();
-			
-		}
-		
-		/**
-		 * @deprecated
-		 * @param unknown_type $instruction
-		 */
-		protected function addAction($instruction) {
-			
-			
 			
 		}
 		

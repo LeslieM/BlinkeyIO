@@ -19,6 +19,8 @@
 		
 		global $startLocation, $endLocation;
 		
+		$copied = array();
+		
 		foreach (
 				$iterator = new RecursiveIteratorIterator(
 						new RecursiveDirectoryIterator($startLocation, RecursiveDirectoryIterator::SKIP_DOTS),
@@ -28,11 +30,16 @@
 			//echo "input: $inFile - ". (file_exists($inFile) ? 'exists' : 'doesn\'t exist') . "\n";
 			//echo "output: $outFile - ". (file_exists($outFile) ? 'exists' : 'doesn\'t exist') . "\n";
 			$copyPossible = is_file($inFile) && file_exists($outFile);
-			if($copyPossible) {
-				if(!isReadable($outFile) && isWriteable($outFile))
+			if($copyPossible && !in_array($inFile, $copied)) {
+				//echo "$outFile: ".(isReadable($outFile))." ".isWriteable($outFile)."\n";
+				echo $inFile."\n";
+				if(!isReadable($outFile) || file_get_contents($inFile) != file_get_contents($outFile)) {
 					file_put_contents($outFile, file_get_contents($inFile));
-				elseif(file_get_contents($inFile) != file_get_contents($outFile))
-					file_put_contents($outFile, file_get_contents($inFile));
+					$copied[] = $inFile;
+					echo $inFile."\n";
+				}
+				
+				/**/
 			}
 		}
 		
@@ -42,6 +49,6 @@
 		
 		copyFilesToGpio();
 		
-		usleep(microseconds(0.4));
+		usleep(microseconds(2));
 		
 	}

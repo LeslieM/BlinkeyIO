@@ -9,13 +9,15 @@
 		
 		// Using BCM pin numbers.
 		private $pins;
+		
 		private $pinsR1 = array('0', '1', '4', '7', '8', '9', '10', '11', '14', '15', '17', '18', '21', '22', '23', '24', '25');
 		//                       |    |                                                            || 
 		private $pinsR2 = array('2', '3', '4', '7', '8', '9', '10', '11', '14', '15', '17', '18', '27', '22', '23', '24', '25');
 		
 		public function __construct($revision = null) {
-			if(isset($this->{'pins'.$revision}))
-				$this->pins = $this->{'pins'.$revision};
+			if(!isset($this->{'pinsR'.$revision}))
+				$revision = 1;
+			$this->pins = $this->{'pinsR'.$revision};
 		}
 
 		// exported pins for when we unexport all
@@ -57,7 +59,8 @@
 		public function output($pinNo, $value) {
 			if($this->isExported($pinNo)) {
 				if($this->currentDirection($pinNo) != "in") {
-					file_put_contents('/sys/class/gpio/gpio'.$pinNo.'/value', $value);
+					if(file_put_contents('/sys/class/gpio/gpio'.$pinNo.'/value', $value) === false)
+						echo 'Argh!';
 				} else {
 					echo 'Error! Wrong Direction for this pin! Meant to be out while it is ' . $this->currentDirection($pinNo);
 				}
@@ -73,10 +76,10 @@
 			}
 		}
 
-		public function unexportAll() {
-			foreach ($this->exportedPins as $key => $pinNo) file_put_contents('/sys/class/gpio/unexport', $pinNo);
-			$this->exportedPins = array();
-		}
+		//public function unexportAll() {
+		//	foreach ($this->exportedPins as $key => $pinNo) file_put_contents('/sys/class/gpio/unexport', $pinNo);
+		//	$this->exportedPins = array();
+		//}
 
 		// Check if exported
 		public function isExported($pinNo) {
@@ -102,6 +105,13 @@
 				if($this->isExported($pin))
 					$this->unexport($pin);
 			}
+		}
+		
+		/**
+		 * Get the current list of pins
+		 */
+		public function getPins() {
+			return $this->pins;
 		}
 	}
 ?>

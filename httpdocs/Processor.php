@@ -3,6 +3,7 @@
 	require_once 'Instruction.php';
 	require_once 'Session.php';
 	require_once 'GpioFudge.php';
+	require_once 'GPIO.php';
 
 	class Processor extends Session {
 		
@@ -69,7 +70,11 @@
 		
 		public function initialise() {
 			
-			$this->gpio = new GpioFudge();
+			$this->gpio = new Gpio(2);
+			
+			// Turn all the lights off
+			for($i = 0; $i < $this->nLights; $i++)
+				$this->gpio->output($this->getGpioPinForPosition($i), 0);
 			
 			// Choose the statring two lights
 			$this->startPosition = array();
@@ -188,6 +193,10 @@
 			return $this->instructions[(int)$position];
 		}
 		
+		public function getInstructions($position) {
+			return $this->instructions;
+		}
+		
 		/**
 		 * Compares two values with the instruction at a given position
 		 * If no position is given it will use the current position
@@ -225,7 +234,7 @@
 		 */
 		protected function getGpioPinForPosition($position) {
 			$pins = $this->gpio->getPins();
-			return $pins[$position+10];
+			return $pins[$position+8];
 		}
 		
 	}

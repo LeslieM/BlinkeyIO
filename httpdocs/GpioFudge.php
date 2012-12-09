@@ -24,7 +24,7 @@
 				self::DIRECTION_OUT,
 			);
 		
-		protected $outputLocation = '/var/gpio';
+		protected $outputLocation = '/sys/class/gpio';
 		
 		//
 		// Methods
@@ -83,14 +83,14 @@
 					$this->export($pinNo);
 					$this->setup($pinNo, self::DIRECTION_OUT);
 				}
-				if($this->currentDirection($pinNo) == self::DIRECTION_OUT) {
+				//if($this->currentDirection($pinNo) == self::DIRECTION_OUT) {
 					if(!file_exists("$this->outputLocation/gpio$pinNo"))
 						mkdir("$this->outputLocation/gpio$pinNo", 0770, true);
 					file_put_contents("$this->outputLocation/gpio$pinNo/value", $value);
-				}
-				else {
-					echo 'Error! Wrong Direction for this pin! Meant to be out while it is ' . $this->currentDirection($pinNo);
-				}
+				//}
+				//else {
+				//	echo 'Error! Wrong Direction for this pin! Meant to be out while it is ' . $this->currentDirection($pinNo);
+				//}
 			}
 		}
 		
@@ -120,10 +120,10 @@
 		 * Unexport this pin
 		 * @param integer $pinNo
 		 */
-		public function unexport($pinNo) {
-			if($this->isValidPin($pinNo))
-				file_put_contents("$this->outputLocation/unexport", $pinNo);
-		}
+	//	public function unexport($pinNo) {
+	//		if($this->isValidPin($pinNo))
+	//			file_put_contents("$this->outputLocation/unexport", $pinNo);
+	//	}
 		
 		/**
 		 * Check this is a valid direction
