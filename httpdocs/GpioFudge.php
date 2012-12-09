@@ -169,6 +169,9 @@
 			return file_get_contents("$this->outputLocation/gpio$pinNo/direction");
 		}
 		
+		/**
+		 * Get the current list of pins
+		 */
 		public function getPins() {
 			return $this->pins;
 		}
