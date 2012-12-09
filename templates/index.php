@@ -53,8 +53,8 @@
 				<td><p>If one of the two previous LEDs are set to True, then returns True otherwise False.</p></td>
 			</tr>
 			<tr>
-				<td><img src="/static/images/or.jpg"/></td>
-				<td><p>If both previous LEDs are set to True, then returns True otherwise False.</p></td>
+				<td><img src="/static/images/xor.jpg"/></td>
+				<td><p>Returns True only if just one of the two previous LEDs are set to True.</p></td>
 			</tr>
 			</table>
 		</div>
