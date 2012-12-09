@@ -16,12 +16,12 @@
 		const INSTRUCTION_LESS_THAN    = 'lessThan'  ;
 		
 		protected static $acceptableInstructions = array(
-				INSTRUCTION_AND,
-				INSTRUCTION_OR,
-				INSTRUCTION_XOR,
-				INSTRUCTION_EQUAL,
-				INSTRUCTION_GREATER_THAN,
-				INSTRUCTION_LESS_THAN,
+				self::INSTRUCTION_AND,
+				self::INSTRUCTION_OR,
+				self::INSTRUCTION_XOR,
+				self::INSTRUCTION_EQUAL,
+				self::INSTRUCTION_GREATER_THAN,
+				self::INSTRUCTION_LESS_THAN,
 			);
 
 		public function __construct($instruction = null) {
@@ -50,7 +50,7 @@
 		 * @return boolean or null if instruction was not found
 		 */
 		public function compare($valueA, $valueB) {
-			if(method_exists($this, $this->{$this->instruction.'Values'}))
+			if(method_exists($this, $this->instruction.'Values'))
 				return $this->{$this->instruction.'Values'}($valueA, $valueB);
 		}
 		

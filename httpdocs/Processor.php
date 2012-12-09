@@ -1,6 +1,8 @@
 <?php
 
 	require_once 'Instruction.php';
+	require_once 'Session.php';
+	require_once 'GpioFudge.php';
 
 	class Processor extends Session {
 		
@@ -51,6 +53,12 @@
 		 */
 		protected $gpio;
 		
+		/**
+		 * Has this object been initialised
+		 * @var unknown_type
+		 */
+		public $initialised;
+		
 		//
 		// Metheds
 		//
@@ -86,6 +94,7 @@
 		
 		public function stepThroughInstructionsWithGpioOutput() {
 			
+			$this->actualPositions = array();
 			$this->actualPositions[0] = $this->startPosition[0];
 			$this->actualPositions[1] = $this->startPosition[1];
 			
@@ -98,9 +107,17 @@
 				
 				$pinNo = $this->getGpioPinForPosition($i);
 				$this->gpio->output($pinNo, $this->actualPositions[$i]);
+				
 				sleep(1);
 			}
 			
+		}
+		
+		public function hasWon() {
+			foreach($this->goalPosition as $i => $goal)
+				if($this->actualPositions[$i] != $goal)
+					return false;
+			return true;
 		}
 		
 		/**

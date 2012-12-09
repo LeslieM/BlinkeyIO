@@ -19,6 +19,8 @@
 			$this->request = Tools::arrayToObject($_REQUEST);
 			$this->requestedPath = explode('/', $_SERVER['REQUEST_URI']);
 			$this->processor = Processor::getSession();
+			if(!$this->processor->initialised)
+				$this->processor->initialise();
 		}
 		
 		/**
@@ -34,6 +36,15 @@
 			
 			require_once self::$template;
 			exit;
+			
+		}
+		
+		public function callApiAction() {
+			
+			if(isset($this->request->execute))
+				$this->callAction('execute'); // Ends script
+			
+			$this->callAction('index'); // Ends script
 			
 		}
 		
@@ -60,6 +71,8 @@
 				$this->processor->addInstruction($instruction);
 			
 			$this->processor->stepThroughInstructionsWithGpioOutput();
+			
+			var_dump($this->processor->hasWon());
 			
 		}
 		

@@ -20,8 +20,8 @@
 		const DIRECTION_OUT = 'out';
 		
 		protected $validDirections = array(
-				DIRECTION_IN,
-				DIRECTION_OUT,
+				self::DIRECTION_IN,
+				self::DIRECTION_OUT,
 			);
 		
 		protected $outputLocation = '/var/gpio';
@@ -36,8 +36,10 @@
 		 */
 		public function __construct($revision = null) {
 			
-			if(isset($this->{'pinsR'.$revision}))
-				$this->pins = $this->{'pins'.$revision};
+			
+			if(!isset($this->{'pinsR'.$revision}))
+				$revision = 1;
+			$this->pins = $this->{'pinsR'.$revision};
 			
 		}
 		
@@ -59,8 +61,11 @@
 				$this->export($pinNo);
 		
 				// if valid direction then set direction
-				if($this->isValidDirection($direction))
+				if($this->isValidDirection($direction)) {
+					if(!file_exists("$this->outputLocation/gpio$pinNo"))
+						mkdir("$this->outputLocation/gpio$pinNo", 0770, true);
 					file_put_contents("$this->outputLocation/gpio$pinNo/direction", $direction);
+				}
 		
 			} else {
 				throw new Exception('Error! Not a valid pin!');
@@ -78,10 +83,14 @@
 					$this->export($pinNo);
 					$this->setup($pinNo, self::DIRECTION_OUT);
 				}
-				if($this->currentDirection($pinNo) == self::DIRECTION_OUT)
+				if($this->currentDirection($pinNo) == self::DIRECTION_OUT) {
+					if(!file_exists("$this->outputLocation/gpio$pinNo"))
+						mkdir("$this->outputLocation/gpio$pinNo", 0770, true);
 					file_put_contents("$this->outputLocation/gpio$pinNo/value", $value);
-				else
+				}
+				else {
 					echo 'Error! Wrong Direction for this pin! Meant to be out while it is ' . $this->currentDirection($pinNo);
+				}
 			}
 		}
 		
@@ -90,10 +99,12 @@
 		 * @param integer $pinNo
 		 */
 		public function input($pinNo) {
-			if($this->isValidPin($pinNo))
+			if($this->isValidPin($pinNo)) {
 				if(!$this->isExported($pinNo))
 					$this->export($pinNo);
-				return file_get_contents('/sys/class/gpio/gpio'.$pinNo.'/value');
+				if(file_exists("$this->outputLocation/gpio$pinNo/value"))
+					return file_get_contents("$this->outputLocation/gpio$pinNo/value");
+			}
 		}
 		
 		/**
@@ -150,8 +161,16 @@
 			}
 		}
 		
+		/**
+		 * Might not work
+		 * @param unknown_type $pinNo
+		 */
+		public function currentDirection($pinNo) {
+			return file_get_contents("$this->outputLocation/gpio$pinNo/direction");
+		}
+		
 		public function getPins() {
-			return $pins;
+			return $this->pins;
 		}
 		
 	}
