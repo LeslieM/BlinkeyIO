@@ -79,6 +79,10 @@
 			else
 				$this->startPosition[] = $this->getRandomSetting();
 			
+			// Set the initial lights
+			$this->gpio->output($this->getGpioPinForPosition(0), $this->startPosition[0]);
+			$this->gpio->output($this->getGpioPinForPosition(1), $this->startPosition[1]);
+			
 			// Choose the ending positions
 			$this->goalPosition = array();
 
@@ -110,6 +114,8 @@
 				
 				sleep(1);
 			}
+			
+			var_dump($this->actualPositions);
 			
 		}
 		
@@ -204,6 +210,13 @@
 		 */
 		protected function getRandomSetting() {
 			return mt_rand(0, 1);
+		}
+		
+		/**
+		 * Reset the instructions array
+		 */
+		public function clearInstructions() {
+			$this->instructions = array();
 		}
 		
 		/**

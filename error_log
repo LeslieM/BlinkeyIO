@@ -783,3 +783,5 @@
 [Sun Dec 09 02:32:21 2012] [error] [client 127.0.0.1] File does not exist: /Users/danielmason/vhosts/BlinkeyIO/httpdocs/static/js/google-code-prettify, referer: http://blinkey.dev/
 [Sun Dec 09 02:37:08 2012] [error] [client 127.0.0.1] File does not exist: /Users/danielmason/vhosts/BlinkeyIO/httpdocs/static/js/google-code-prettify, referer: http://blinkey.dev/
 [Sun Dec 09 02:37:08 2012] [error] [client 127.0.0.1] File does not exist: /Users/danielmason/vhosts/BlinkeyIO/httpdocs/static/css/docs.css, referer: http://blinkey.dev/
+[Sun Dec 09 09:55:58 2012] [error] [client 127.0.0.1] File does not exist: /Users/danielmason/vhosts/BlinkeyIO/httpdocs/static/css/docs.css, referer: http://blinkey.dev/
+[Sun Dec 09 09:55:58 2012] [error] [client 127.0.0.1] File does not exist: /Users/danielmason/vhosts/BlinkeyIO/httpdocs/static/js/google-code-prettify, referer: http://blinkey.dev/

@@ -61,7 +61,7 @@
 		 * @return boolean
 		 */
 		protected function andValues($valueA, $valueB) {
-			return $valueA && $valueB;
+			return ($valueA==1 && $valueB==1) ? 1 : 0;
 		}
 		
 		/**
@@ -71,7 +71,7 @@
 		 * @return boolean
 		 */
 		protected function nandValues($valueA, $valueB) {
-			return !($valueA && $valueB);
+			return !($valueA==1 && $valueB==1) ? 1 : 0;
 		}
 		
 		/**
@@ -81,7 +81,7 @@
 		 * @return boolean
 		 */
 		protected function orValues($valueA, $valueB) {
-			return $valueA || $valueB;
+			return ($valueA==1 || $valueB==1) ? 1 : 0;
 		}
 		
 		/**
@@ -91,7 +91,7 @@
 		 * @return boolean
 		 */
 		protected function xorValues($valueA, $valueB) {
-			return $valueA ^ $valueB;
+			return ($valueA==1 ^ $valueB==1) ? 1 : 0;
 		}
 		
 		/**
@@ -101,7 +101,7 @@
 		 * @return boolean
 		 */
 		protected function equalValues($valueA, $valueB) {
-			return $valueA == $valueB;
+			return ($valueA == $valueB) ? 1 : 0;
 		}
 		
 		/**
@@ -111,7 +111,7 @@
 		 * @return boolean
 		 */
 		protected function greaterThanValues($valueA, $valueB) {
-			return $valueA > $valueB;
+			return ($valueA > $valueB) ? 1 : 0;
 		}
 		
 		/**
@@ -121,7 +121,7 @@
 		 * @return boolean
 		 */
 		protected function lessThanValues($valueA, $valueB) {
-			return $valueA < $valueB;
+			return ($valueA < $valueB) ? 1 : 0;
 		}
 		
 	}

@@ -66,13 +66,14 @@
 				$this->callAction('index'); // Script terminates
 			
 			// Set up the instructions
+			$this->processor->clearInstructions();
 			$instructions = (array)$this->request->instructions;
 			foreach($instructions as $instruction)
 				$this->processor->addInstruction($instruction);
 			
 			$this->processor->stepThroughInstructionsWithGpioOutput();
 			
-			var_dump($this->processor->hasWon());
+			//var_dump($this->processor->hasWon());
 			
 		}
 		
